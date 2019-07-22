@@ -4,6 +4,9 @@ import effective.com.lib.utils.SERVICE_METHODS
 
 class ServiceLifecycle : IAndroidLifecycle {
 
-    override fun getAllMethods() = SERVICE_METHODS
+    companion object TAG {
+	const val TAG = "Service"
+    }
 
+    override fun getAllMethods() = SERVICE_METHODS
 }

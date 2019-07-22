@@ -17,8 +17,8 @@ The class methods should follow the following order:
 - public abstract methods
 - protected abstract methods
 - public open methods
-- protected open methods
 - public methods
+- protected open methods
 - protected methods
 - private methods
 

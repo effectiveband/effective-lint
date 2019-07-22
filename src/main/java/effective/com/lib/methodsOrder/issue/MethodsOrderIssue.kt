@@ -21,8 +21,8 @@ class MethodsOrderIssue {
 		    "- public abstract methods\n" + "\n" +
 		    "- protected abstract methods\n" + "\n" +
 		    "- public open methods\n" + "\n" +
-		    "- protected open methods\n" + "\n" +
 		    "- public methods\n" + "\n" +
+		    "- protected open methods\n" + "\n" +
 		    "- protected methods\n" + "\n" +
 		    "- private methods"
 	private const val PRIORITY = 4

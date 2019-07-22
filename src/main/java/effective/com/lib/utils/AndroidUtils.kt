@@ -1,18 +1,5 @@
 package effective.com.lib.utils
 
-enum class AndroidKotlinMethod {
-    OVERRIDE_ANDROID_LIFECYCLE,
-    OVERRIDE_BASE_CLASS,
-    OVERRIDE_INTERFACE,
-    PUBLIC_ABSTRACT,
-    PROTECTED_ABSTRACT,
-    PUBLIC_OPEN,
-    PROTECTED_OPEN,
-    PUBLIC,
-    PROTECTED,
-    PRIVATE,
-}
-
 val ACTIVITY_METHODS = listOf(
     "onCreate",
     "onStart",

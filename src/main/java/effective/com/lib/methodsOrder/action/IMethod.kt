@@ -1,9 +1,9 @@
 package effective.com.lib.methodsOrder.action
 
+import com.android.tools.lint.detector.api.JavaContext
+import org.jetbrains.uast.UMethod
+
 interface IMethod {
 
-    val STEP_WEIGHT: Int
-	get() = 100
-
-    fun calculateWeight(position: Int): Int
+    fun calculateWeight(javaContext: JavaContext, method: UMethod, position: Int): Int
 }

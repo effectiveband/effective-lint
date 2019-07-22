@@ -9,19 +9,19 @@ import org.jetbrains.uast.UElement
 import java.util.Collections.singletonList
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.isKotlin
+import effective.com.lib.methodsOrder.action.AndroidLifecycleMethod
+import effective.com.lib.methodsOrder.action.OverrideBaseClassMethod
+import effective.com.lib.methodsOrder.action.OverrideInterfaceMethod
+import effective.com.lib.methodsOrder.action.PrivateMethod
+import effective.com.lib.methodsOrder.action.ProtectedAbstractMethod
+import effective.com.lib.methodsOrder.action.ProtectedMethod
+import effective.com.lib.methodsOrder.action.ProtectedOpenMethod
+import effective.com.lib.methodsOrder.action.PublicAbstractMethod
+import effective.com.lib.methodsOrder.action.PublicMethod
+import effective.com.lib.methodsOrder.action.PublicOpenMethod
 import effective.com.lib.methodsOrder.config.MethodOrderConfig
 import effective.com.lib.methodsOrder.helper.MethodsOrderHelper
 import org.jetbrains.uast.UMethod
-import effective.com.lib.utils.AndroidKotlinMethod.OVERRIDE_ANDROID_LIFECYCLE
-import effective.com.lib.utils.AndroidKotlinMethod.OVERRIDE_BASE_CLASS
-import effective.com.lib.utils.AndroidKotlinMethod.OVERRIDE_INTERFACE
-import effective.com.lib.utils.AndroidKotlinMethod.PUBLIC_ABSTRACT
-import effective.com.lib.utils.AndroidKotlinMethod.PROTECTED_ABSTRACT
-import effective.com.lib.utils.AndroidKotlinMethod.PUBLIC_OPEN
-import effective.com.lib.utils.AndroidKotlinMethod.PROTECTED_OPEN
-import effective.com.lib.utils.AndroidKotlinMethod.PUBLIC
-import effective.com.lib.utils.AndroidKotlinMethod.PROTECTED
-import effective.com.lib.utils.AndroidKotlinMethod.PRIVATE
 import org.jetbrains.kotlin.psi.KtNamedFunction
 
 
@@ -70,17 +70,17 @@ class MethodsOrderDetector : Detector(), Detector.UastScanner {
     inner class CustomVisitor(private val context: JavaContext) : UElementHandler() {
 
 	private val config = MethodOrderConfig(
-	    setOf(
-		OVERRIDE_ANDROID_LIFECYCLE,
-		OVERRIDE_BASE_CLASS,
-		OVERRIDE_INTERFACE,
-		PUBLIC_ABSTRACT,
-		PROTECTED_ABSTRACT,
-		PUBLIC_OPEN,
-		PROTECTED_OPEN,
-		PUBLIC,
-		PROTECTED,
-		PRIVATE
+	    linkedSetOf(
+		AndroidLifecycleMethod::class,
+		OverrideBaseClassMethod::class,
+		OverrideInterfaceMethod::class,
+		PublicAbstractMethod::class,
+		ProtectedAbstractMethod::class,
+		PublicOpenMethod::class,
+		PublicMethod::class,
+		ProtectedOpenMethod::class,
+		ProtectedMethod::class,
+		PrivateMethod::class
 	    )
 	)
 
