@@ -9,6 +9,19 @@
 </p>
 
 
+## MethodsOrderDetector
+The class methods should follow the following order:
+- `override` lifecycle methods in order from lifecycle
+- any other `override` methods from base class
+- any other `override` methods from interfaces in interfaces order
+- public abstract methods
+- protected abstract methods
+- public open methods
+- public methods
+- protected open methods
+- protected methods
+- private methods
+
 ## LayoutNameDetector
 - All layouts should have prefix that shows place where this layout will be used.
 - For example: `MainActivity -> activity_main.xml`
