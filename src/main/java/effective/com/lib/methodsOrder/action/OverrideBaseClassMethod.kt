@@ -7,5 +7,5 @@ import org.jetbrains.uast.UMethod
 class OverrideBaseClassMethod : IMethod {
 
     override fun calculateWeight(javaContext: JavaContext, method: UMethod, position: Int) =
-	if (method.isOverrideBaseClass(javaContext.evaluator)) STEP_WEIGHT * position else -1
+	if (method.isOverrideBaseClass()) STEP_WEIGHT * position else -1
 }

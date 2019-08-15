@@ -7,5 +7,5 @@ import org.jetbrains.uast.UMethod
 class OverrideInterfaceMethod : IMethod {
 
     override fun calculateWeight(javaContext: JavaContext, method: UMethod, position: Int) =
-	if (method.isOverrideInterface(javaContext.evaluator)) STEP_WEIGHT * position else -1
+	if (method.isOverrideInterface()) STEP_WEIGHT * position else -1
 }

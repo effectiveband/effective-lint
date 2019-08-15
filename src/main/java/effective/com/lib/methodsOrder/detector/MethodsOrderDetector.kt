@@ -29,33 +29,42 @@ class MethodsOrderDetector : Detector(), Detector.UastScanner {
 
     private var javaContext: JavaContext? = null
 
-    private val list: MutableList<Pair<UMethod, Int>> = mutableListOf()
+    private val list: MutableList<MutableList<Pair<UMethod, Int>>> = mutableListOf()
 
     override fun beforeCheckFile(context: Context) {
 	list.clear()
     }
 
     override fun afterCheckFile(context: Context) {
-	var previewValue = Int.MAX_VALUE
+	if (list.isEmpty()) return
 
 	list.forEach {
-	    val value = it.second
+	    if (it.isNotEmpty()) {
+		val subList = it
+		var previewValue = Int.MAX_VALUE
+		var previewUMethod = it[0].first
 
-	    if (value > previewValue) {
-		val uMethod = it.first
+		subList.forEach { pairMethodWeight ->
+		    val (uMethod, value) = pairMethodWeight
 
-		javaContext?.let { javaContext ->
-		    javaContext.report(
-			MethodsOrderIssue.ISSUE,
-			uMethod,
-			javaContext.getLocation(uMethod),
-			MethodsOrderIssue.ID
-		    )
+		    if (value > previewValue) {
+
+			javaContext?.let { javaContext ->
+			    javaContext.report(
+				MethodsOrderIssue.ISSUE,
+				previewUMethod,
+				javaContext.getLocation(previewUMethod),
+				MethodsOrderIssue.ID
+			    )
+			}
+		    }
+
+		    previewUMethod = uMethod
+		    previewValue = value
 		}
 	    }
-
-	    previewValue = value
 	}
+
 	list.clear()
     }
 
@@ -86,13 +95,17 @@ class MethodsOrderDetector : Detector(), Detector.UastScanner {
 
 	override fun visitClass(node: UClass) {
 	    if (isKotlin(node) && !node.isInterface) {
+		val subList: MutableList<Pair<UMethod, Int>> = mutableListOf()
+
 		node.methods.filter {
 		    it.sourceElement is KtNamedFunction
 		}.forEach {
 		    MethodsOrderHelper(config, context, it).apply {
-			list.add(it to getMethodWeight())
+			subList.add(it to getMethodWeight())
 		    }
 		}
+
+		list.add(subList)
 	    }
 	}
     }
