@@ -17,13 +17,11 @@ fun UMethod.isProtected() = hasModifierProperty(PsiModifier.PROTECTED)
 
 fun UMethod.isPublic() = hasModifierProperty(PsiModifier.PUBLIC)
 
-fun UMethod.isOverrideInterface(evaluator: JavaEvaluator) =
-    evaluator.getSuperMethod(this)?.containingClass?.isInterface ?: false
+fun UMethod.isOverrideInterface(): Boolean =
+    findSuperMethods().find { it.containingClass?.isInterface == true }?.let { true } ?: false
 
-fun UMethod.isOverrideBaseClass(evaluator: JavaEvaluator) =
-    evaluator.getSuperMethod(this)?.containingClass?.let {
-	!it.isInterface
-    } ?: false
+fun UMethod.isOverrideBaseClass() =
+    if (findSuperMethods().isEmpty()) false else !isOverrideInterface()
 
 fun UMethod.getSuperClass() =
     ((getBaseSuperMethod(this) as? ClsMethodImpl)?.stub?.parentStub as? PsiClassStub)
